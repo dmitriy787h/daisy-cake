@@ -1,5 +1,4 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import { 
   CakeConfiguration, 
   CakeSize, 
@@ -31,8 +30,8 @@ interface CakeStore {
   selectedFillings: Filling[];
   selectedDecorations: Decoration[];
   selectedPackaging: Packaging;
-  selectedCandles: number;
-  customText: string;
+  selectedCandles: number | undefined;
+  customText: string | undefined;
   customImage: string | undefined;
   
   // Действия
@@ -44,8 +43,8 @@ interface CakeStore {
   addDecoration: (decoration: Decoration) => void;
   removeDecoration: (decorationId: string) => void;
   setPackaging: (packaging: Packaging) => void;
-  setCandles: (count: number) => void;
-  setCustomText: (text: string) => void;
+  setCandles: (count: number | undefined) => void;
+  setCustomText: (text: string | undefined) => void;
   setCustomImage: (image: string | undefined) => void;
   resetConfiguration: () => void;
   
@@ -66,162 +65,236 @@ const defaultConfiguration: CakeConfiguration = {
   customImage: undefined
 };
 
-export const useCakeStore = create<CakeStore>()(
-  persist(
-    (set, get) => ({
-      // Начальное состояние
-      configuration: defaultConfiguration,
-      availableSizes: cakeSizes,
-      availableLayers: cakeLayers,
-      availableFillings: fillings,
-      availableDecorations: decorations,
-      availablePackaging: packaging,
-      
-      selectedSize: cakeSizes[1],
-      selectedLayers: [cakeLayers[0]],
-      selectedFillings: [fillings[0]],
-      selectedDecorations: [],
-      selectedPackaging: packaging[0],
-      selectedCandles: 0,
-      customText: '',
-      customImage: undefined,
-      
-      // Действия
-      setSize: (size) => set({ selectedSize: size }),
-      
-      addLayer: (layer) => set((state) => ({
-        selectedLayers: [...state.selectedLayers, layer]
-      })),
-      
-      removeLayer: (layerId) => set((state) => ({
-        selectedLayers: state.selectedLayers.filter(layer => layer.id !== layerId)
-      })),
-      
-      addFilling: (filling) => set((state) => ({
-        selectedFillings: [...state.selectedFillings, filling]
-      })),
-      
-      removeFilling: (fillingId) => set((state) => ({
-        selectedFillings: state.selectedFillings.filter(filling => filling.id !== fillingId)
-      })),
-      
-      addDecoration: (decoration) => set((state) => ({
-        selectedDecorations: [...state.selectedDecorations, decoration]
-      })),
-      
-      removeDecoration: (decorationId) => set((state) => ({
-        selectedDecorations: state.selectedDecorations.filter(decoration => decoration.id !== decorationId)
-      })),
-      
-      setPackaging: (packaging) => set({ selectedPackaging: packaging }),
-      setCandles: (count) => set({ selectedCandles: count }),
-      setCustomText: (text) => set({ customText: text }),
-      setCustomImage: (image) => set({ customImage: image }),
-      
-      resetConfiguration: () => set({
-        selectedSize: cakeSizes[1],
-        selectedLayers: [cakeLayers[0]],
-        selectedFillings: [fillings[0]],
-        selectedDecorations: [],
-        selectedPackaging: packaging[0],
-        selectedCandles: 0,
-        customText: '',
-        customImage: undefined
-      }),
-      
-      // Вычисляемые значения
-      getTotalPrice: () => {
-        const state = get();
-        let total = state.selectedSize.basePrice;
-        
-        // Добавляем стоимость слоев
-        state.selectedLayers.forEach(layer => {
-          total += layer.price;
-        });
-        
-        // Добавляем стоимость начинок
-        state.selectedFillings.forEach(filling => {
-          total += filling.price;
-        });
-        
-        // Добавляем стоимость декора
-        state.selectedDecorations.forEach(decoration => {
-          total += decoration.price;
-        });
-        
-        // Добавляем стоимость упаковки
-        total += state.selectedPackaging.price;
-        
-        // Добавляем стоимость свечей (50 руб за свечу)
-        total += state.selectedCandles * 50;
-        
-        return total;
-      },
-      
-      getConfigurationSummary: () => {
-        const state = get();
-        const parts = [];
-        
-        parts.push(`Размер: ${state.selectedSize.name}`);
-        parts.push(`Слои: ${state.selectedLayers.map(l => l.name).join(', ')}`);
-        parts.push(`Начинки: ${state.selectedFillings.map(f => f.name).join(', ')}`);
-        
-        if (state.selectedDecorations.length > 0) {
-          parts.push(`Декор: ${state.selectedDecorations.map(d => d.name).join(', ')}`);
-        }
-        
-        if (state.selectedCandles > 0) {
-          parts.push(`Свечи: ${state.selectedCandles} шт.`);
-        }
-        
-        if (state.customText) {
-          parts.push(`Текст: "${state.customText}"`);
-        }
-        
-        return parts.join(' | ');
-      },
-      
-      validateConfiguration: () => {
-        const state = get();
-        const warnings: string[] = [];
-        
-        // Проверяем совместимость безглютенового коржа с начинками
-        const hasGlutenFreeLayer = state.selectedLayers.some(layer => layer.isGlutenFree);
-        const hasNonGlutenFreeFilling = state.selectedFillings.some(filling => !filling.isGlutenFree);
-        
-        if (hasGlutenFreeLayer && hasNonGlutenFreeFilling) {
-          warnings.push('Внимание: выбран безглютеновый корж, но некоторые начинки могут содержать глютен');
-        }
-        
-        // Проверяем количество слоев
-        if (state.selectedLayers.length > 3) {
-          warnings.push('Рекомендуется не более 3 слоев для лучшего вкуса');
-        }
-        
-        // Проверяем количество начинок
-        if (state.selectedFillings.length > 2) {
-          warnings.push('Рекомендуется не более 2 видов начинки для сбалансированного вкуса');
-        }
-        
-        return {
-          isValid: warnings.length === 0,
-          warnings
-        };
+export const useCakeStore = create<CakeStore>((set, get) => ({
+  // Начальное состояние
+  configuration: defaultConfiguration,
+  availableSizes: cakeSizes,
+  availableLayers: cakeLayers,
+  availableFillings: fillings,
+  availableDecorations: decorations,
+  availablePackaging: packaging,
+  
+  // Выбранные опции (синхронизированы с configuration)
+  selectedSize: defaultConfiguration.size,
+  selectedLayers: defaultConfiguration.layers,
+  selectedFillings: defaultConfiguration.fillings,
+  selectedDecorations: defaultConfiguration.decorations,
+  selectedPackaging: defaultConfiguration.packaging,
+  selectedCandles: defaultConfiguration.candles,
+  customText: defaultConfiguration.customText,
+  customImage: defaultConfiguration.customImage,
+  
+  // Действия
+  setSize: (size: CakeSize) => {
+    set((state) => ({
+      selectedSize: size,
+      configuration: {
+        ...state.configuration,
+        size
       }
-    }),
-    {
-      name: 'cake-configuration',
-      partialize: (state) => ({
-        selectedSize: state.selectedSize,
-        selectedLayers: state.selectedLayers,
-        selectedFillings: state.selectedFillings,
-        selectedDecorations: state.selectedDecorations,
-        selectedPackaging: state.selectedPackaging,
-        selectedCandles: state.selectedCandles,
-        customText: state.customText,
-        customImage: state.customImage
-      })
+    }));
+  },
+  
+  addLayer: (layer: CakeLayer) => {
+    set((state) => {
+      const newLayers = [...state.selectedLayers, layer];
+      return {
+        selectedLayers: newLayers,
+        configuration: {
+          ...state.configuration,
+          layers: newLayers
+        }
+      };
+    });
+  },
+  
+  removeLayer: (layerId: string) => {
+    set((state) => {
+      const newLayers = state.selectedLayers.filter(layer => layer.id !== layerId);
+      return {
+        selectedLayers: newLayers,
+        configuration: {
+          ...state.configuration,
+          layers: newLayers
+        }
+      };
+    });
+  },
+  
+  addFilling: (filling: Filling) => {
+    set((state) => {
+      const newFillings = [...state.selectedFillings, filling];
+      return {
+        selectedFillings: newFillings,
+        configuration: {
+          ...state.configuration,
+          fillings: newFillings
+        }
+      };
+    });
+  },
+  
+  removeFilling: (fillingId: string) => {
+    set((state) => {
+      const newFillings = state.selectedFillings.filter(filling => filling.id !== fillingId);
+      return {
+        selectedFillings: newFillings,
+        configuration: {
+          ...state.configuration,
+          fillings: newFillings
+        }
+      };
+    });
+  },
+  
+  addDecoration: (decoration: Decoration) => {
+    set((state) => {
+      const newDecorations = [...state.selectedDecorations, decoration];
+      return {
+        selectedDecorations: newDecorations,
+        configuration: {
+          ...state.configuration,
+          decorations: newDecorations
+        }
+      };
+    });
+  },
+  
+  removeDecoration: (decorationId: string) => {
+    set((state) => {
+      const newDecorations = state.selectedDecorations.filter(decoration => decoration.id !== decorationId);
+      return {
+        selectedDecorations: newDecorations,
+        configuration: {
+          ...state.configuration,
+          decorations: newDecorations
+        }
+      };
+    });
+  },
+  
+  setPackaging: (packaging: Packaging) => {
+    set((state) => ({
+      selectedPackaging: packaging,
+      configuration: {
+        ...state.configuration,
+        packaging
+      }
+    }));
+  },
+  
+  setCandles: (count: number | undefined) => {
+    set((state) => ({
+      selectedCandles: count,
+      configuration: {
+        ...state.configuration,
+        candles: count
+      }
+    }));
+  },
+  
+  setCustomText: (text: string | undefined) => {
+    set((state) => ({
+      customText: text,
+      configuration: {
+        ...state.configuration,
+        customText: text
+      }
+    }));
+  },
+  
+  setCustomImage: (image: string | undefined) => {
+    set((state) => ({
+      customImage: image,
+      configuration: {
+        ...state.configuration,
+        customImage: image
+      }
+    }));
+  },
+  
+  resetConfiguration: () => {
+    set({
+      configuration: defaultConfiguration,
+      selectedSize: defaultConfiguration.size,
+      selectedLayers: defaultConfiguration.layers,
+      selectedFillings: defaultConfiguration.fillings,
+      selectedDecorations: defaultConfiguration.decorations,
+      selectedPackaging: defaultConfiguration.packaging,
+      selectedCandles: defaultConfiguration.candles,
+      customText: defaultConfiguration.customText,
+      customImage: defaultConfiguration.customImage
+    });
+  },
+  
+  // Вычисляемые значения
+  getTotalPrice: () => {
+    const state = get();
+    let total = state.selectedSize.basePrice;
+    
+    // Добавляем стоимость слоев
+    state.selectedLayers.forEach(layer => {
+      total += layer.price;
+    });
+    
+    // Добавляем стоимость начинок
+    state.selectedFillings.forEach(filling => {
+      total += filling.price;
+    });
+    
+    // Добавляем стоимость декора
+    state.selectedDecorations.forEach(decoration => {
+      total += decoration.price;
+    });
+    
+    // Добавляем стоимость упаковки
+    total += state.selectedPackaging.price;
+    
+    // Добавляем стоимость свечей
+    total += (state.selectedCandles || 0) * 50;
+    
+    // Добавляем стоимость персонального текста
+    if (state.customText) {
+      total += 50;
     }
-  )
-);
-
+    
+    // Применяем скидку за большой заказ
+    if (total > 5000) {
+      total = Math.floor(total * 0.95);
+    }
+    
+    return total;
+  },
+  
+  getConfigurationSummary: () => {
+    const state = get();
+    return `Торт: ${state.selectedSize.name}, ${state.selectedLayers.length} слоев, ${state.selectedFillings.length} начинок, ${state.selectedDecorations.length} декора`;
+  },
+  
+  validateConfiguration: () => {
+    const state = get();
+    const warnings: string[] = [];
+    
+    // Проверяем минимальные требования
+    if (state.selectedLayers.length === 0) {
+      warnings.push('Выберите хотя бы один слой торта');
+    }
+    
+    if (state.selectedFillings.length === 0) {
+      warnings.push('Выберите хотя бы одну начинку');
+    }
+    
+    // Проверяем совместимость
+    const hasGlutenFreeLayer = state.selectedLayers.some(layer => layer.isGlutenFree);
+    const hasNonGlutenFreeFilling = state.selectedFillings.some(filling => !filling.isGlutenFree);
+    
+    if (hasGlutenFreeLayer && hasNonGlutenFreeFilling) {
+      warnings.push('Безглютеновые слои лучше сочетаются с безглютеновыми начинками');
+    }
+    
+    return {
+      isValid: warnings.length === 0,
+      warnings
+    };
+  }
+}));

@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/', '/admin/'],
     },
-    sitemap: 'https://bb-cake.ru/sitemap.xml',
+    sitemap: 'https://daisy-cake.ru/sitemap.xml',
   }
 }

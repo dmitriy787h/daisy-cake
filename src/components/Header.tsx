@@ -2,11 +2,17 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Phone, ShoppingCart, User } from 'lucide-react';
+import { Menu, X, Phone, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '@/store/cartStore';
+import { useIsMounted } from '@/hooks/useIsMounted';
+import { useCartHydration } from '@/hooks/useCartHydration';
+import Cart from './Cart';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { toggleCart, getTotalItems } = useCartStore();
+  const isMounted = useIsMounted();
+  useCartHydration();
 
   const menuItems = [
     { name: 'Главная', href: '/' },
@@ -21,14 +27,25 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Логотип */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">BB</span>
+          <Link href="/" className="flex items-center">
+            <div className="relative">
+              <img 
+                src="/images/logo/logo.png" 
+                alt="Daisy Cake - Конструктор тортов на заказ" 
+                className="h-12 w-auto"
+                onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                  e.currentTarget.style.display = 'none';
+                  const next = e.currentTarget.nextElementSibling as HTMLElement | null;
+                  if (next) next.style.display = 'flex';
+                }}
+              />
+              <div 
+                className="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center"
+                style={{ display: 'none' }}
+              >
+                <span className="text-white font-bold text-xl">D</span>
+              </div>
             </div>
-            <span className="text-2xl font-bold text-gray-900">
-              {/* TODO: заменить логотип */}
-              BB Cake
-            </span>
           </Link>
 
           {/* Навигация для десктопа */}
@@ -46,23 +63,26 @@ const Header = () => {
 
           {/* Контакты и корзина */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-2 text-gray-600">
+            <a 
+              href="https://wa.me/79384052590" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 text-gray-600 hover:text-green-600 transition-colors"
+            >
               <Phone className="w-4 h-4" />
-              <span className="text-sm">
-                {/* TODO: заменить телефон */}
-                +7 (999) 123-45-67
-              </span>
-            </div>
+              <span className="text-sm">8 (938) 405-25-90</span>
+            </a>
             
-            <button className="p-2 text-gray-600 hover:text-pink-600 transition-colors">
-              <User className="w-5 h-5" />
-            </button>
-            
-            <button className="p-2 text-gray-600 hover:text-pink-600 transition-colors relative">
+            <button 
+              onClick={toggleCart}
+              className="p-2 text-gray-600 hover:text-pink-600 transition-colors relative"
+            >
               <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
-              </span>
+              {isMounted && getTotalItems() > 0 && (
+                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
+              )}
             </button>
           </div>
 
@@ -76,52 +96,54 @@ const Header = () => {
         </div>
 
         {/* Мобильное меню */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-gray-200"
-            >
-              <nav className="py-4 space-y-2">
-                {menuItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block px-4 py-2 text-gray-700 hover:text-pink-600 hover:bg-gray-50 transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+        {isMenuOpen && (
+          <div className="md:hidden border-t border-gray-200">
+            <nav className="py-4 space-y-2">
+              {menuItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="block px-4 py-2 text-gray-700 hover:text-pink-600 hover:bg-gray-50 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              
+              <div className="px-4 py-2 border-t border-gray-200 mt-4">
+                <a 
+                  href="https://wa.me/79384052590" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-gray-600 hover:text-green-600 transition-colors mb-2"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span className="text-sm">8 (938) 405-25-90</span>
+                </a>
                 
-                <div className="px-4 py-2 border-t border-gray-200 mt-4">
-                  <div className="flex items-center space-x-2 text-gray-600 mb-2">
-                    <Phone className="w-4 h-4" />
-                    <span className="text-sm">+7 (999) 123-45-67</span>
-                  </div>
-                  
-                  <div className="flex space-x-4 mt-2">
-                    <button className="p-2 text-gray-600 hover:text-pink-600 transition-colors">
-                      <User className="w-5 h-5" />
-                    </button>
-                    <button className="p-2 text-gray-600 hover:text-pink-600 transition-colors relative">
-                      <ShoppingCart className="w-5 h-5" />
+                <div className="flex space-x-4 mt-2">
+                  <button 
+                    onClick={toggleCart}
+                    className="p-2 text-gray-600 hover:text-pink-600 transition-colors relative"
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    {isMounted && getTotalItems() > 0 && (
                       <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                        0
+                        {getTotalItems()}
                       </span>
-                    </button>
-                  </div>
+                    )}
+                  </button>
                 </div>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </div>
+            </nav>
+          </div>
+        )}
       </div>
+      
+      {/* Cart Component */}
+      <Cart />
     </header>
   );
 };
 
 export default Header;
-

@@ -71,36 +71,28 @@ export interface CakeConfiguration {
 
 export const cakeSizes: CakeSize[] = [
   {
+    id: 'bento',
+    name: 'Бенто',
+    diameter: 11,
+    servings: 2,
+    basePrice: 800,
+    height: 6
+  },
+  {
     id: 'small',
-    name: 'Маленький',
-    diameter: 16,
-    servings: 4,
-    basePrice: 1200,
+    name: 'Торты от 1кг',
+    diameter: 18,
+    servings: 6,
+    basePrice: 1500,
     height: 8
   },
   {
-    id: 'medium',
-    name: 'Средний',
-    diameter: 20,
-    servings: 8,
-    basePrice: 1800,
-    height: 10
-  },
-  {
     id: 'large',
-    name: 'Большой',
+    name: 'Большие торты',
     diameter: 24,
     servings: 12,
-    basePrice: 2500,
+    basePrice: 2800,
     height: 12
-  },
-  {
-    id: 'xl',
-    name: 'Очень большой',
-    diameter: 28,
-    servings: 16,
-    basePrice: 3200,
-    height: 14
   }
 ];
 

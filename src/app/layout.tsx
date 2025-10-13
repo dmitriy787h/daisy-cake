@@ -13,32 +13,43 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "BB Cake - Конструктор тортов на заказ",
-  description: "Создайте свой идеальный торт с помощью нашего конструктора. Широкий выбор размеров, вкусов, декора и упаковки. Доставка по Москве.",
-  keywords: "торты на заказ, конструктор тортов, доставка тортов, кондитерская, Москва",
-  authors: [{ name: "BB Cake" }],
-  creator: "BB Cake",
-  publisher: "BB Cake",
+  title: "Daisy Cake - Конструктор тортов на заказ",
+  description: "Создайте свой идеальный торт с помощью нашего конструктора. Широкий выбор размеров, вкусов, декора и упаковки. Доставка по Сочи.",
+  keywords: "торты на заказ, конструктор тортов, доставка тортов, кондитерская, Сочи",
+  authors: [{ name: "Daisy Cake" }],
+  creator: "Daisy Cake",
+  publisher: "Daisy Cake",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://bb-cake.ru'),
+  metadataBase: new URL('https://daisy-cake.ru'),
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/images/logo/logo.png', type: 'image/png' }
+    ],
+    apple: [
+      { url: '/images/logo/logo.png', sizes: '180x180', type: 'image/png' }
+    ],
+    shortcut: '/favicon.svg'
+  },
   openGraph: {
-    title: "BB Cake - Конструктор тортов на заказ",
+    title: "Daisy Cake - Конструктор тортов на заказ",
     description: "Создайте свой идеальный торт с помощью нашего конструктора. Широкий выбор размеров, вкусов, декора и упаковки.",
-    url: 'https://bb-cake.ru',
-    siteName: 'BB Cake',
+    url: 'https://daisy-cake.ru',
+    siteName: 'Daisy Cake',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'BB Cake - Конструктор тортов',
+        alt: 'Daisy Cake - Конструктор тортов',
       },
     ],
     locale: 'ru_RU',
@@ -46,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "BB Cake - Конструктор тортов на заказ",
+    title: "Daisy Cake - Конструктор тортов на заказ",
     description: "Создайте свой идеальный торт с помощью нашего конструктора.",
     images: ['/og-image.jpg'],
   },
@@ -72,8 +83,40 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    "name": "Daisy Cake",
+    "description": "Конструктор тортов на заказ в Сочи",
+    "url": "https://daisy-cake.ru",
+    "telephone": "+7-938-405-25-90",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ул. Пластунская, д. 151/5",
+      "addressLocality": "Сочи",
+      "addressCountry": "RU"
+    },
+    "openingHours": "Mo-Fr 09:00-21:00,Sa-Su 10:00-20:00",
+    "priceRange": "$$",
+    "servesCuisine": "Кондитерские изделия",
+    "sameAs": [
+      "https://www.instagram.com/daisy.cake.sochi",
+      "https://t.me/daisy_cake_sochi"
+    ]
+  };
+
   return (
     <html lang="ru">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/images/logo/logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/logo/logo.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >

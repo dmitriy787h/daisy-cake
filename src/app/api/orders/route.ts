@@ -20,9 +20,9 @@ const orders: Order[] = [
   {
     id: 'ORD-001',
     customerName: 'Анна Иванова',
-    phone: '+7 (999) 123-45-67',
+    phone: '8 (938) 405-25-90',
     email: 'anna@example.com',
-    deliveryAddress: 'г. Москва, ул. Примерная, д. 123, кв. 45',
+    deliveryAddress: 'г. Сочи, ул. Пластунская, д. 151/5, кв. 45',
     deliveryDate: '2024-01-15',
     deliveryTime: '14:00',
     cakeConfiguration: {

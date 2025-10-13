@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Mobile Constructor</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .test-button {
+            width: 100%;
+            padding: 15px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .test-button:hover {
+            background: #c2185b;
+        }
+        .test-result {
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Тест мобильного конструктора</h1>
+        <p>Нажмите кнопку для проверки работы мобильного конструктора:</p>
+        
+        <button class="test-button" onclick="testMobileConstructor()">
+            Тестировать мобильный конструктор
+        </button>
+        
+        <div id="test-result" class="test-result" style="display: none;">
+            <h3>Результат теста:</h3>
+            <p id="test-output"></p>
+        </div>
+    </div>
+
+    <script>
+        function testMobileConstructor() {
+            const resultDiv = document.getElementById('test-result');
+            const outputP = document.getElementById('test-output');
+            
+            try {
+                // Проверяем, что мы на мобильном устройстве
+                const isMobile = window.innerWidth < 768;
+                
+                if (isMobile) {
+                    outputP.innerHTML = '✅ Мобильное устройство обнаружено<br>';
+                    outputP.innerHTML += '✅ Ширина экрана: ' + window.innerWidth + 'px<br>';
+                    outputP.innerHTML += '✅ Конструктор должен работать в мобильной версии';
+                } else {
+                    outputP.innerHTML = '⚠️ Это не мобильное устройство<br>';
+                    outputP.innerHTML += 'Ширина экрана: ' + window.innerWidth + 'px<br>';
+                    outputP.innerHTML += 'Для тестирования мобильной версии уменьшите ширину окна до 768px или меньше';
+                }
+                
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                outputP.innerHTML = '❌ Ошибка: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        }
+        
+        // Автоматически запускаем тест при загрузке
+        window.addEventListener('load', testMobileConstructor);
+    </script>
+</body>
+</html>
