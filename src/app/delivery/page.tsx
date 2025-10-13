@@ -236,7 +236,7 @@ export default function DeliveryPage() {
                   <span>Позвонить</span>
                 </a>
                 <a 
-                  href="/constructor" 
+                  href="/builder" 
                   className="flex items-center justify-center space-x-2 bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-full font-semibold transition-colors group"
                 >
                   <Wrench className="w-5 h-5 group-hover:scale-110 transition-transform" />

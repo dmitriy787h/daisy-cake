@@ -243,7 +243,7 @@ ${items.map(item => `• ${item.name} - ${item.quantity} шт. × ${item.price}�
                   Оформить заказ
                 </button>
                 <Link
-                  href="/constructor"
+                  href="/builder"
                   onClick={toggleCart}
                   className="w-full border border-pink-500 text-pink-500 py-3 px-4 rounded-full hover:bg-pink-50 transition-colors text-center block font-medium"
                 >

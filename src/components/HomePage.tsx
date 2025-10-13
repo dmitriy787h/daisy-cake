@@ -168,7 +168,7 @@ const HomePage = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Link
-              href="/constructor"
+              href="/builder"
               className="px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-pink-600 hover:bg-pink-700 md:py-4 md:text-lg md:px-10 transition-colors shadow-lg backdrop-blur-sm"
             >
               Создать торт
@@ -292,7 +292,7 @@ const HomePage = () => {
           <h2 className="text-3xl font-bold text-white mb-4">Готовы создать свой торт?</h2>
           <p className="text-xl text-pink-100 mb-8">Начните прямо сейчас с нашего конструктора</p>
           <Link
-            href="/constructor"
+            href="/builder"
             className="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-pink-600 bg-white hover:bg-gray-50 transition-colors shadow-lg"
           >
             Создать торт

@@ -490,7 +490,7 @@ export default function CatalogPage() {
               }
             </p>
             <Link
-              href={activeTab === 'cakes' ? '/constructor' : '/contacts'}
+              href={activeTab === 'cakes' ? '/builder' : '/contacts'}
               className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold rounded-full hover:from-pink-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               {activeTab === 'cakes' ? 'Создать свой торт' : 'Заказать десерт'}
