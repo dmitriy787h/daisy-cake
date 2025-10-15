@@ -13,8 +13,14 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Daisy Cake - Конструктор тортов на заказ",
-  description: "Создайте свой идеальный торт с помощью нашего конструктора. Широкий выбор размеров, вкусов, декора и упаковки. Доставка по Сочи.",
+  title: 'Daisy Cake — конструктор тортов на заказ',
+  description: 'Создай свой уникальный торт онлайн в Daisy Cake!',
+  icons: {
+    icon: '/favicon.png',
+    apple: [
+      { url: '/images/logo/logo.png', sizes: '180x180', type: 'image/png' }
+    ],
+  },
   keywords: "торты на заказ, конструктор тортов, доставка тортов, кондитерская, Сочи",
   authors: [{ name: "Daisy Cake" }],
   creator: "Daisy Cake",
@@ -27,17 +33,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://daisy-cake.ru'),
   alternates: {
     canonical: '/',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/images/logo/logo.png', type: 'image/png' }
-    ],
-    apple: [
-      { url: '/images/logo/logo.png', sizes: '180x180', type: 'image/png' }
-    ],
-    shortcut: '/favicon.svg'
   },
   openGraph: {
     title: "Daisy Cake - Конструктор тортов на заказ",
