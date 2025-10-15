@@ -96,7 +96,7 @@ export default function RootLayout({
       "addressLocality": "Сочи",
       "addressCountry": "RU"
     },
-    "openingHours": "Mo-Fr 09:00-21:00,Sa-Su 10:00-20:00",
+    "openingHours": "Mo-Fr 10:00-19:00,Sa 10:00-17:00",
     "priceRange": "$$",
     "servesCuisine": "Кондитерские изделия",
     "sameAs": [

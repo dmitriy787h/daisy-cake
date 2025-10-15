@@ -5,12 +5,13 @@ import { useState } from 'react';
 const FullMobileConstructor = () => {
   
   const [currentStep, setCurrentStep] = useState(0);
-  const [selectedSize, setSelectedSize] = useState('small');
+  const [selectedSize, setSelectedSize] = useState('1kg');
   const [selectedShape, setSelectedShape] = useState('round');
   const [selectedLayer, setSelectedLayer] = useState<string>('');
   const [selectedFilling, setSelectedFilling] = useState<string>('');
   const [decorationComment, setDecorationComment] = useState('');
-  const [candles, setCandles] = useState(0);
+  const [handmadeCandles, setHandmadeCandles] = useState(0);
+  const [numberCandles, setNumberCandles] = useState(0);
   const [customText, setCustomText] = useState('');
 
 
@@ -29,9 +30,14 @@ const FullMobileConstructor = () => {
   ];
 
   const sizes = [
-    { id: 'bento', name: 'Бенто', price: 800, diameter: 11, servings: 2 },
-    { id: 'small', name: 'Торты от 1кг', price: 1500, diameter: 18, servings: 6 },
-    { id: 'large', name: 'Большие торты', price: 2800, diameter: 24, servings: 12 }
+    { id: 'bento', name: 'Бенто', price: 1499, diameter: 11, servings: 2 },
+    { id: '1kg', name: '1 кг', price: 2500, diameter: 18, servings: 6 },
+    { id: '1.5kg', name: '1,5 кг', price: 3000, diameter: 20, servings: 8 },
+    { id: '2kg', name: '2 кг', price: 4000, diameter: 22, servings: 10 },
+    { id: '2.5kg', name: '2,5 кг', price: 5000, diameter: 24, servings: 12 },
+    { id: '3kg', name: '3 кг', price: 6000, diameter: 26, servings: 14 },
+    { id: '3.5kg', name: '3,5 кг', price: 7000, diameter: 28, servings: 16 },
+    { id: '4kg', name: '4 кг', price: 8000, diameter: 30, servings: 18 }
   ];
 
   const layers = [
@@ -60,7 +66,7 @@ const FullMobileConstructor = () => {
     const fillingPrice = selectedFilling ? (fillings.find(f => f.id === selectedFilling)?.price || 0) : 0;
     // Декор рассчитывается индивидуально менеджером
     const decorationPrice = 0;
-    const candlesPrice = candles * 50;
+    const candlesPrice = handmadeCandles * 60 + numberCandles * 220;
     const textPrice = customText ? 50 : 0;
 
     return sizePrice + shapePrice + layerPrice + fillingPrice + decorationPrice + candlesPrice + textPrice;
@@ -153,7 +159,7 @@ const FullMobileConstructor = () => {
                         Ø{size.diameter}см • {size.servings} порций
                       </div>
                     </div>
-                    <div className="text-lg font-bold text-pink-600">{size.price}₽</div>
+                    <div className="text-lg font-bold text-pink-600">от {size.price}₽</div>
                   </div>
                 </button>
               ))}
@@ -261,27 +267,53 @@ const FullMobileConstructor = () => {
           <div className="space-y-6">
             <h2 className="text-xl font-semibold text-center mb-6">Дополнительно</h2>
             
+            {/* Свечи ручной работы */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-3">
-                Количество свечей
+                🕯️ Свечи ручной работы
               </label>
               <div className="flex items-center justify-center space-x-6">
                 <button
-                  onClick={() => setCandles(Math.max(0, candles - 1))}
+                  onClick={() => setHandmadeCandles(Math.max(0, handmadeCandles - 1))}
                   className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
                 >
                   <span className="text-xl">-</span>
                 </button>
-                <span className="text-2xl font-bold w-12 text-center">{candles}</span>
+                <span className="text-2xl font-bold w-12 text-center">{handmadeCandles}</span>
                 <button
-                  onClick={() => setCandles(candles + 1)}
+                  onClick={() => setHandmadeCandles(handmadeCandles + 1)}
                   className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
                 >
                   <span className="text-xl">+</span>
                 </button>
               </div>
               <div className="text-center text-sm text-gray-600 mt-2">
-                × 50₽ = {candles * 50}₽
+                × 60₽ = {handmadeCandles * 60}₽
+              </div>
+            </div>
+
+            {/* Свечи-цифры */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                🔢 Свечи-цифры
+              </label>
+              <div className="flex items-center justify-center space-x-6">
+                <button
+                  onClick={() => setNumberCandles(Math.max(0, numberCandles - 1))}
+                  className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                >
+                  <span className="text-xl">-</span>
+                </button>
+                <span className="text-2xl font-bold w-12 text-center">{numberCandles}</span>
+                <button
+                  onClick={() => setNumberCandles(numberCandles + 1)}
+                  className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50"
+                >
+                  <span className="text-xl">+</span>
+                </button>
+              </div>
+              <div className="text-center text-sm text-gray-600 mt-2">
+                × от 220₽ = от {numberCandles * 220}₽
               </div>
             </div>
 
@@ -412,7 +444,8 @@ const FullMobileConstructor = () => {
 • Бисквит: ${selectedLayer ? layers.find(l => l.id === selectedLayer)?.name || 'Не выбран' : 'Не выбран'}
 • Начинка: ${selectedFillingData?.name || 'Не выбрана'}
 • Декор: ${decorationComment || 'Не указан'}
-• Свечи: ${candles} шт. ${candles > 0 ? `(+${candles * 50}₽)` : ''}
+${handmadeCandles > 0 ? `• Свечи ручной работы: ${handmadeCandles} шт. × 60₽ = ${handmadeCandles * 60}₽` : ''}
+${numberCandles > 0 ? `• Свечи-цифры: ${numberCandles} шт. × от 220₽ = от ${numberCandles * 220}₽` : ''}
 ${customText ? `• Персональная надпись: "${customText}"` : ''}
 
 💰 Общая стоимость: ${totalPrice}₽
@@ -423,7 +456,9 @@ ${customText ? `• Персональная надпись: "${customText}"` : 
 
 📸 Наш инстаграм: https://www.instagram.com/daisy.cake.sochi?igsh=dWYzMXZkNDBtMnJ3
 
-Спасибо за заказ! 🎂`;
+Спасибо за заказ! 🎂
+
+Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа`;
 
                 const telegramUrl = `https://t.me/daisy_cake_sochi?text=${encodeURIComponent(orderText)}`;
                 
@@ -503,10 +538,16 @@ ${customText ? `• Персональная надпись: "${customText}"` : 
                 <span>Декор:</span>
                 <span className="font-semibold">{decorationComment ? 'Указан' : 'Не указан'}</span>
               </div>
-              {candles > 0 && (
+              {handmadeCandles > 0 && (
                 <div className="flex justify-between">
-                  <span>Свечи:</span>
-                  <span className="font-semibold">{candles} шт.</span>
+                  <span>Свечи ручной работы:</span>
+                  <span className="font-semibold">{handmadeCandles} шт. × 60₽ = {handmadeCandles * 60}₽</span>
+                </div>
+              )}
+              {numberCandles > 0 && (
+                <div className="flex justify-between">
+                  <span>Свечи-цифры:</span>
+                  <span className="font-semibold">{numberCandles} шт. × от 220₽ = от {numberCandles * 220}₽</span>
                 </div>
               )}
               {customText && (

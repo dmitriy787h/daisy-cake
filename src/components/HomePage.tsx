@@ -13,65 +13,65 @@ const HomePage = () => {
   const cakes = [
     {
       id: 1,
-      name: 'С малиной',
+      name: 'С вафельным декором и малиной',
       price: 5200,
-      description: 'Нежный бисквит с малиновым кремом и свежими ягодами',
+      description: '',
       images: ['/images/cakes/mkdir/cake-1.jpg', '/images/cakes/mkdir/cake-1.1.jpg'],
       category: 'cakes'
     },
     {
       id: 2,
-      name: 'Бенто бургер',
+      name: 'Бенто Бургер',
       price: 1899,
-      description: 'Мини-торт в виде бургера с шоколадным бисквитом и кремом',
+      description: '',
       images: ['/images/cakes/mkdir/cake-2.jpg'],
       category: 'cakes'
     },
     {
       id: 3,
-      name: 'Лабубу бенто',
+      name: 'Бенто Лабубу',
       price: 2300,
-      description: 'Мини-торт с нежным бисквитом и воздушным кремом',
+      description: '',
       images: ['/images/cakes/mkdir/cake-3.1.jpg', '/images/cakes/mkdir/cake-3.jpg'],
       category: 'cakes'
     },
     {
       id: 4,
-      name: 'С лисой',
+      name: 'С фирменной рюшей и фигуркой из мастики',
       price: 4600,
-      description: 'Нежный торт с декором в виде лисы и ягодным кремом',
+      description: '',
       images: ['/images/cakes/mkdir/cake-4.jpg'],
       category: 'cakes'
     },
     {
       id: 5,
-      name: 'Мусс бенто',
+      name: 'Муссовый бенто',
       price: 1799,
-      description: 'Мини-торт с воздушным муссом и нежным бисквитом',
+      description: '',
       images: ['/images/cakes/mkdir/cake-5.1.jpg', '/images/cakes/mkdir/cake-5.2.jpg', '/images/cakes/mkdir/cake-5.3.jpg', '/images/cakes/mkdir/cake-5.jpg'],
       category: 'cakes'
     },
     {
       id: 6,
-      name: 'Морской',
+      name: 'Морской с шоколадным декором',
       price: 4500,
-      description: 'Торт с морской тематикой и нежным кремом',
+      description: '',
       images: ['/images/cakes/mkdir/cake-6.1.jpg', '/images/cakes/mkdir/cake-6.jpg'],
       category: 'cakes'
     },
     {
       id: 7,
-      name: 'Красный с сердцами',
+      name: 'С объемными сердечками и шоколадным велюром',
       price: 4700,
-      description: 'Романтичный торт с красным бархатом и сердечками',
+      description: '',
       images: ['/images/cakes/mkdir/cake-7.jpg'],
       category: 'cakes'
     },
     {
       id: 8,
-      name: 'Бенто с медведем',
+      name: 'Бенто с шоколадной фигуркой',
       price: 2100,
-      description: 'Мини-торт с декором в виде медведя',
+      description: '',
       images: ['/images/cakes/mkdir/cake-8.jpg'],
       category: 'cakes'
     },
@@ -79,7 +79,7 @@ const HomePage = () => {
       id: 9,
       name: 'С рюшами и вишнями',
       price: 4000,
-      description: 'Элегантный торт с рюшами и вишневым кремом',
+      description: '',
       images: ['/images/cakes/mkdir/cake-9.jpg'],
       category: 'cakes'
     }
@@ -212,7 +212,7 @@ const HomePage = () => {
                 <span className="text-2xl">⚡</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Быстрая доставка</h3>
-              <p className="text-gray-600">Доставляем торты в день заказа по всей Москве и области</p>
+              <p className="text-gray-600">Доставляем торты в день заказа по всему Сочи</p>
             </div>
             
             <div className="text-center">
@@ -248,8 +248,7 @@ const HomePage = () => {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">{product.name}</h3>
-                      <p className="text-gray-600 mb-4">{product.description}</p>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-4">{product.name}</h3>
                       <div className="flex justify-between items-center">
                            <span className="text-xl sm:text-2xl font-bold text-pink-600">{product.price}₽</span>
                         <button

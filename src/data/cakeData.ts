@@ -75,24 +75,64 @@ export const cakeSizes: CakeSize[] = [
     name: 'Бенто',
     diameter: 11,
     servings: 2,
-    basePrice: 800,
+    basePrice: 1499,
     height: 6
   },
   {
-    id: 'small',
-    name: 'Торты от 1кг',
+    id: '1kg',
+    name: '1 кг',
     diameter: 18,
     servings: 6,
-    basePrice: 1500,
+    basePrice: 2500,
     height: 8
   },
   {
-    id: 'large',
-    name: 'Большие торты',
+    id: '1.5kg',
+    name: '1,5 кг',
+    diameter: 20,
+    servings: 8,
+    basePrice: 3000,
+    height: 9
+  },
+  {
+    id: '2kg',
+    name: '2 кг',
+    diameter: 22,
+    servings: 10,
+    basePrice: 4000,
+    height: 10
+  },
+  {
+    id: '2.5kg',
+    name: '2,5 кг',
     diameter: 24,
     servings: 12,
-    basePrice: 2800,
+    basePrice: 5000,
+    height: 11
+  },
+  {
+    id: '3kg',
+    name: '3 кг',
+    diameter: 26,
+    servings: 14,
+    basePrice: 6000,
     height: 12
+  },
+  {
+    id: '3.5kg',
+    name: '3,5 кг',
+    diameter: 28,
+    servings: 16,
+    basePrice: 7000,
+    height: 13
+  },
+  {
+    id: '4kg',
+    name: '4 кг',
+    diameter: 30,
+    servings: 18,
+    basePrice: 8000,
+    height: 14
   }
 ];
 

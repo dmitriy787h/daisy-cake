@@ -6,36 +6,25 @@ import FullMobileConstructor from './FullMobileConstructor';
 
 const ResponsiveCakeConstructor = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    setIsClient(true);
+    // Проверяем размер экрана
     const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      setIsMobile(mobile);
+      if (typeof window !== 'undefined') {
+        const mobile = window.innerWidth < 768;
+        setIsMobile(mobile);
+      }
     };
 
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }
   }, []);
 
-  // Показываем загрузку до определения размера экрана
-  if (!isClient) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Загрузка конструктора...</p>
-        </div>
-      </div>
-    );
-  }
-
-
+  // По умолчанию показываем десктопную версию, если не определили мобильную
   if (isMobile) {
     try {
       return <FullMobileConstructor />;

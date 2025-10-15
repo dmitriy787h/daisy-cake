@@ -77,17 +77,10 @@ const CakeDetailsModal = ({ isOpen, onClose, cake }: CakeDetailsModalProps) => {
 
           {/* Content */}
           <div className="p-6">
-            {/* Title and rating */}
+            {/* Title */}
             <div className="flex items-start justify-between mb-4">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">{cake.name}</h2>
-                <div className="flex items-center space-x-2">
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm font-medium">{cake.rating}</span>
-                  </div>
-                  <span className="text-sm text-gray-500">({cake.reviews} отзывов)</span>
-                </div>
               </div>
               <div className="text-right">
                 <div className="text-3xl font-bold text-pink-600">{formatPrice(cake.price)}₽</div>
@@ -97,9 +90,6 @@ const CakeDetailsModal = ({ isOpen, onClose, cake }: CakeDetailsModalProps) => {
               </div>
             </div>
 
-            {/* Description */}
-            <p className="text-gray-600 mb-6">{cake.description}</p>
-
             {/* Details grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               {cake.servings && (
@@ -108,16 +98,6 @@ const CakeDetailsModal = ({ isOpen, onClose, cake }: CakeDetailsModalProps) => {
                   <div>
                     <div className="font-medium text-gray-900">Порций</div>
                     <div className="text-sm text-gray-600">{cake.servings} человек</div>
-                  </div>
-                </div>
-              )}
-              
-              {cake.preparationTime && (
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <Clock className="w-5 h-5 text-pink-500" />
-                  <div>
-                    <div className="font-medium text-gray-900">Время приготовления</div>
-                    <div className="text-sm text-gray-600">{cake.preparationTime}</div>
                   </div>
                 </div>
               )}
@@ -133,39 +113,6 @@ const CakeDetailsModal = ({ isOpen, onClose, cake }: CakeDetailsModalProps) => {
               )}
             </div>
 
-            {/* Ingredients */}
-            {cake.ingredients && cake.ingredients.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Состав</h3>
-                <div className="flex flex-wrap gap-2">
-                  {cake.ingredients.map((ingredient, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm"
-                    >
-                      {ingredient}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Allergens */}
-            {cake.allergens && cake.allergens.length > 0 && (
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Аллергены</h3>
-                <div className="flex flex-wrap gap-2">
-                  {cake.allergens.map((allergen, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm"
-                    >
-                      {allergen}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
 
             {/* Action buttons */}
             <div className="flex space-x-3">

@@ -71,8 +71,9 @@ export default function ContactsPage() {
                   <div>
                     <h3 className="font-semibold text-gray-900">Время работы</h3>
                     <div className="text-gray-600">
-                      <p>Пн-Пт: 9:00 - 21:00</p>
-                      <p>Сб-Вс: 10:00 - 20:00</p>
+                      <p>Пн-Пт: 10:00 - 19:00</p>
+                      <p>Сб: 10:00 - 17:00</p>
+                      <p>Вс: Выходной</p>
                     </div>
                   </div>
                 </div>

@@ -12,11 +12,11 @@ import ProductImageGallery from '@/components/ProductImageGallery';
 const cakeItems = [
   {
     id: 1,
-    name: 'С малиной',
+    name: 'С вафельным декором и малиной',
     price: 5200,
     rating: 4.9,
     reviews: 127,
-    description: 'Нежный бисквит с малиновым кремом и свежими ягодами',
+    description: '',
     weight: '1.5 кг',
     servings: 8,
     preparationTime: '4-6 часов',
@@ -31,11 +31,11 @@ const cakeItems = [
   },
   {
     id: 2,
-    name: 'Бенто бургер',
+    name: 'Бенто Бургер',
     price: 1899,
     rating: 4.8,
     reviews: 89,
-    description: 'Мини-торт в виде бургера с шоколадным бисквитом и кремом',
+    description: '',
     weight: '0.4 кг',
     servings: 2,
     preparationTime: '3-4 часа',
@@ -49,11 +49,11 @@ const cakeItems = [
   },
   {
     id: 3,
-    name: 'Лабубу бенто',
+    name: 'Бенто Лабубу',
     price: 2300,
     rating: 4.7,
     reviews: 156,
-    description: 'Мини-торт с нежным бисквитом и воздушным кремом',
+    description: '',
     weight: '0.65 кг',
     servings: 2,
     preparationTime: '2-3 часа',
@@ -68,11 +68,11 @@ const cakeItems = [
   },
   {
     id: 4,
-    name: 'С лисой',
+    name: 'С фирменной рюшей и фигуркой из мастики',
     price: 4600,
     rating: 4.9,
     reviews: 203,
-    description: 'Нежный торт с декором в виде лисы и ягодным кремом',
+    description: '',
     weight: '1.5 кг',
     servings: 8,
     preparationTime: '5-6 часов',
@@ -86,11 +86,11 @@ const cakeItems = [
   },
   {
     id: 5,
-    name: 'Мусс бенто',
+    name: 'Муссовый бенто',
     price: 1799,
     rating: 4.8,
     reviews: 94,
-    description: 'Мини-торт с воздушным муссом и нежным бисквитом',
+    description: '',
     weight: '0.4 кг',
     servings: 2,
     preparationTime: '3-4 часа',
@@ -107,11 +107,11 @@ const cakeItems = [
   },
   {
     id: 6,
-    name: 'Морской',
+    name: 'Морской с шоколадным декором',
     price: 4500,
     rating: 4.6,
     reviews: 178,
-    description: 'Торт с морской тематикой и голубым кремом',
+    description: '',
     weight: '1.5 кг',
     servings: 8,
     preparationTime: '5-6 часов',
@@ -126,11 +126,11 @@ const cakeItems = [
   },
   {
     id: 7,
-    name: 'Красный с сердцами',
+    name: 'С объемными сердечками и шоколадным велюром',
     price: 4700,
     rating: 4.7,
     reviews: 145,
-    description: 'Романтичный красный торт с декором в виде сердец',
+    description: '',
     weight: '1.5 кг',
     servings: 8,
     preparationTime: '5-6 часов',
@@ -144,11 +144,11 @@ const cakeItems = [
   },
   {
     id: 8,
-    name: 'Бенто с медведем',
+    name: 'Бенто с шоколадной фигуркой',
     price: 2100,
     rating: 4.8,
     reviews: 112,
-    description: 'Мини-торт с декором в виде медведя и нежным кремом',
+    description: '',
     weight: '0.4 кг',
     servings: 2,
     preparationTime: '3-4 часа',
@@ -166,7 +166,7 @@ const cakeItems = [
     price: 4000,
     rating: 4.9,
     reviews: 167,
-    description: 'Элегантный торт с рюшами из крема и вишневой начинкой',
+    description: '',
     weight: '1.5 кг',
     servings: 8,
     preparationTime: '6-7 часов',
@@ -268,13 +268,54 @@ const dessertItems = [
   }
 ];
 
+const candleItems = [
+        {
+          id: 21,
+          name: 'Свечи в виде цифр',
+          price: 220,
+    rating: 4.8,
+    reviews: 45,
+    description: '',
+    weight: '1 шт',
+    servings: 1,
+    preparationTime: '1-2 часа',
+    shelfLife: '6 месяцев',
+    ingredients: ['Воск', 'Фитиль', 'Пищевые красители'],
+    allergens: [],
+    category: 'candles',
+    images: [
+      '/images/candles/candle-numbers-1.jpg',
+      '/images/candles/candle-numbers-2.jpg'
+    ]
+  },
+        {
+          id: 22,
+          name: 'Свечи длинные ручной работы',
+          price: 60,
+    rating: 4.9,
+    reviews: 67,
+    description: '',
+    weight: '1 шт',
+    servings: 1,
+    preparationTime: '2-3 часа',
+    shelfLife: '6 месяцев',
+    ingredients: ['Воск', 'Фитиль', 'Пищевые красители', 'Ароматизаторы'],
+    allergens: [],
+    category: 'candles',
+    images: [
+      '/images/candles/candle-long-1.jpg',
+      '/images/candles/candle-long-2.jpg'
+    ]
+  }
+];
+
 export default function CatalogPage() {
   const { addItem } = useCartStore();
   const [selectedCake, setSelectedCake] = useState<typeof cakeItems[0] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [likedItems, setLikedItems] = useState<Set<number>>(new Set());
   const [addedToCart, setAddedToCart] = useState<Set<string>>(new Set());
-  const [activeTab, setActiveTab] = useState<'cakes' | 'desserts'>('cakes');
+  const [activeTab, setActiveTab] = useState<'cakes' | 'desserts' | 'candles'>('cakes');
 
   // Загружаем лайки из localStorage при загрузке компонента
   useEffect(() => {
@@ -353,7 +394,7 @@ export default function CatalogPage() {
   };
 
   // Получаем текущие товары в зависимости от активной вкладки
-  const currentItems = activeTab === 'cakes' ? cakeItems : dessertItems;
+  const currentItems = activeTab === 'cakes' ? cakeItems : activeTab === 'desserts' ? dessertItems : candleItems;
 
   return (
     <div className="min-h-screen bg-white">
@@ -364,7 +405,7 @@ export default function CatalogPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Каталог</h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Выберите готовый торт или десерт из нашей коллекции или создайте свой уникальный в конструкторе
+              Выберите готовый торт, десерт или свечи из нашей коллекции или создайте свой уникальный в конструкторе
             </p>
           </div>
 
@@ -390,6 +431,16 @@ export default function CatalogPage() {
                 }`}
               >
                 Десерты
+              </button>
+              <button
+                onClick={() => setActiveTab('candles')}
+                className={`px-6 py-3 rounded-full font-medium transition-all duration-200 ${
+                  activeTab === 'candles'
+                    ? 'bg-pink-500 text-white shadow-md'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Свечи
               </button>
             </div>
           </div>
@@ -426,16 +477,10 @@ export default function CatalogPage() {
 
               {/* Контент */}
               <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
+                <div className="mb-4">
                   <h3 className="text-xl font-semibold text-gray-900">{item.name}</h3>
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600">{item.rating}</span>
-                    <span className="text-sm text-gray-400">({item.reviews})</span>
-                  </div>
                 </div>
 
-                <p className="text-gray-600 mb-4 text-sm">{item.description}</p>
 
                 <div className="flex items-center justify-between">
                   <div className="text-2xl font-bold text-pink-600">{item.price}₽</div>

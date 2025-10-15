@@ -31,19 +31,24 @@ export default function DeliveryPage() {
               
               <div className="space-y-6">
                 <div className="bg-white rounded-xl p-6 shadow-sm">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">По городу Сочи</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Тарифы доставки</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="text-gray-700">Доставка в день заказа</span>
-                      <span className="font-semibold text-pink-600">500₽</span>
+                      <span className="text-gray-700">По городу</span>
+                      <span className="font-semibold text-pink-600">По тарифам Яндекса</span>
                     </div>
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="text-gray-700">Доставка на следующий день</span>
-                      <span className="font-semibold text-pink-600">300₽</span>
+                      <span className="text-gray-700">Адлер</span>
+                      <span className="font-semibold text-pink-600">1500₽</span>
                     </div>
                     <div className="flex justify-between items-center py-2">
-                      <span className="text-gray-700">При заказе от 5000₽</span>
-                      <span className="font-semibold text-green-600">Бесплатно</span>
+                      <span className="text-gray-700">Красная поляна</span>
+                      <span className="font-semibold text-pink-600">2500₽</span>
+                    </div>
+                    <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+                      <p className="text-sm text-blue-700">
+                        <span className="font-semibold">Примечание:</span> Точная сумма доставки по городу рассчитывается перед отправлением торта
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -53,15 +58,19 @@ export default function DeliveryPage() {
                   <div className="space-y-2">
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                      <span className="text-gray-700">Понедельник - Воскресенье: 9:00 - 21:00</span>
+                      <span className="text-gray-700">Пн-Пт: 10:00 - 19:00</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+                      <span className="text-gray-700">Сб: 10:00 - 17:00</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+                      <span className="text-gray-700">Вс: Выходной</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
                       <span className="text-gray-700">Минимальное время заказа: 3 часа</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                      <span className="text-gray-700">Доставка в день заказа до 18:00</span>
                     </div>
                   </div>
                 </div>
@@ -70,21 +79,21 @@ export default function DeliveryPage() {
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Зоны доставки</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Центральные районы</h4>
+                      <h4 className="font-medium text-gray-900 mb-2">По тарифам Яндекса</h4>
                       <ul className="text-sm text-gray-600 space-y-1">
                         <li>• Центр города</li>
-                        <li>• Адлер</li>
                         <li>• Хоста</li>
                         <li>• Мацеста</li>
+                        <li>• Лазаревское</li>
+                        <li>• Дагомыс</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Отдаленные районы</h4>
+                      <h4 className="font-medium text-gray-900 mb-2">Фиксированные тарифы</h4>
                       <ul className="text-sm text-gray-600 space-y-1">
-                        <li>• Лазаревское</li>
-                        <li>• Дагомыс</li>
-                        <li>• Красная Поляна</li>
-                        <li>• Уточняйте по телефону</li>
+                        <li>• Адлер - 1500₽</li>
+                        <li>• Красная Поляна - 2500₽</li>
+                        <li>• Другие районы - уточняйте</li>
                       </ul>
                     </div>
                   </div>

@@ -18,20 +18,20 @@ const CakeConstructor = () => {
   
   // Локальное состояние
   const [selectedSize, setSelectedSize] = useState({
-    id: 'small',
-    name: 'Торты от 1кг',
-    basePrice: 1500,
+    id: '1kg',
+    name: '1 кг',
+    basePrice: 2500,
     diameter: 18,
     servings: 6,
     height: 8
   });
 
   const [selectedShape, setSelectedShape] = useState('round');
-  const [selectedLayer, setSelectedLayer] = useState<string>('');
-  const [selectedFilling, setSelectedFilling] = useState<string>('');
+  const [selectedCakeVariant, setSelectedCakeVariant] = useState<string>('');
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
   const [selectedPackaging, setSelectedPackaging] = useState('standard');
-  const [selectedCandles, setSelectedCandles] = useState(0);
+  const [selectedHandmadeCandles, setSelectedHandmadeCandles] = useState(0);
+  const [selectedNumberCandles, setSelectedNumberCandles] = useState(0);
   const [customText, setCustomText] = useState('');
 
   const shapes = [
@@ -40,25 +40,25 @@ const CakeConstructor = () => {
   ];
 
   const sizes = [
-    { id: 'bento', name: 'Бенто', price: 800, diameter: 11 },
-    { id: 'small', name: 'Торты от 1кг', price: 1500, diameter: 18 },
-    { id: 'large', name: 'Большие торты больше 1кг', price: 2800, diameter: 24 }
+    { id: 'bento', name: 'Бенто', price: 1499, diameter: 11 },
+    { id: '1kg', name: '1 кг', price: 2500, diameter: 18 },
+    { id: '1.5kg', name: '1,5 кг', price: 3000, diameter: 20 },
+    { id: '2kg', name: '2 кг', price: 4000, diameter: 22 },
+    { id: '2.5kg', name: '2,5 кг', price: 5000, diameter: 24 },
+    { id: '3kg', name: '3 кг', price: 6000, diameter: 26 },
+    { id: '3.5kg', name: '3,5 кг', price: 7000, diameter: 28 },
+    { id: '4kg', name: '4 кг', price: 8000, diameter: 30 }
   ];
 
-  const layers = [
-    { id: 'vanilla', name: 'Ванильный бисквит' },
-    { id: 'chocolate', name: 'Шоколадный бисквит' },
-    { id: 'red-velvet', name: 'Красный бархат' },
-    { id: 'honey', name: 'Медовый' }
-  ];
-
-  const fillings = [
-    { id: 'strawberry', name: 'Клубничная', price: 0 },
-    { id: 'cherry', name: 'Вишневая', price: 0 },
-    { id: 'caramel', name: 'Карамель', price: 0 },
-    { id: 'caramel-peanut', name: 'Карамель и арахис', price: 0 },
-    { id: 'caramel-banana', name: 'Карамель и банан', price: 0 },
-    { id: 'coconut', name: 'Кокосовое', price: 0 }
+  const cakeVariants = [
+    { id: 'chocolate-caramel-banana', name: 'Шоколадный с карамелью и бананом', price: 0 },
+    { id: 'chocolate-snickers', name: 'Шоколадный Сникерс', price: 0 },
+    { id: 'chocolate-coconut', name: 'Шоколадный с кокосом', price: 0 },
+    { id: 'honey-strawberry', name: 'Медовый с клубникой', price: 0 },
+    { id: 'vanilla-strawberry-coconut', name: 'Ванильный с клубникой и кокосом', price: 0 },
+    { id: 'vanilla-berries', name: 'Ванильный с лесными ягодами', price: 0 },
+    { id: 'vanilla-chocolate-coffee', name: 'Ванильный с шоколадной крошкой и кофе', price: 0 },
+    { id: 'red-velvet-cherry', name: 'Красный бархат с вишней', price: 0 }
   ];
 
   const decorations = [
@@ -73,6 +73,9 @@ const CakeConstructor = () => {
     { id: 'premium', name: 'Подарочная упаковка', price: 200 }
   ];
 
+  const handmadeCandlePrice = 60;
+  const numberCandlePrice = 220;
+
   const calculateTotalPrice = () => {
     let total = selectedSize.basePrice;
     
@@ -80,13 +83,8 @@ const CakeConstructor = () => {
     const shapePrice = shapes.find(s => s.id === selectedShape)?.price || 0;
     total += shapePrice;
     
-    // Бисквит включен в базовую стоимость
-    
-    // Добавляем цену за начинку
-    if (selectedFilling) {
-      const filling = fillings.find(f => f.id === selectedFilling);
-      if (filling) total += filling.price;
-    }
+    // Для тортов от 1кг - варианты включены в базовую стоимость
+    // Для бенто - варианты не нужны
     
     // Добавляем цену за декор
     selectedDecorations.forEach(decorationId => {
@@ -99,7 +97,8 @@ const CakeConstructor = () => {
     total += packagingPrice;
     
     // Добавляем цену за свечи
-    total += selectedCandles * 50;
+    total += selectedHandmadeCandles * handmadeCandlePrice;
+    total += selectedNumberCandles * numberCandlePrice;
     
     // Добавляем цену за текст
     if (customText) total += 50;
@@ -114,10 +113,9 @@ const CakeConstructor = () => {
 
   const tabs = [
     { id: 'size', name: 'Размер', icon: '📏', step: 1 },
-    { id: 'layers', name: 'Бисквит', icon: '🍰', step: 2 },
-    { id: 'fillings', name: 'Начинки', icon: '🥄', step: 3 },
-    { id: 'decorations', name: 'Декор', icon: '✨', step: 4 },
-    { id: 'extras', name: 'Дополнительно', icon: '🕯️', step: 5 }
+    { id: 'variant', name: 'Вариант', icon: '🍰', step: 2 },
+    { id: 'decorations', name: 'Декор', icon: '✨', step: 3 },
+    { id: 'extras', name: 'Дополнительно', icon: '🕯️', step: 4 }
   ];
 
   const [formData, setFormData] = useState<ConstructorForm>({
@@ -139,14 +137,18 @@ const CakeConstructor = () => {
         {sizes.map((size) => (
           <button
             key={size.id}
-            onClick={() => setSelectedSize({
-              id: size.id,
-              name: size.name,
-              basePrice: size.price,
-              diameter: size.diameter,
-              servings: size.diameter === 11 ? 2 : size.diameter === 18 ? 6 : 12,
-              height: 8
-            })}
+            onClick={() => {
+              setSelectedSize({
+                id: size.id,
+                name: size.name,
+                basePrice: size.price,
+                diameter: size.diameter,
+                servings: size.diameter === 11 ? 2 : size.diameter === 18 ? 6 : 12,
+                height: 8
+              });
+              // Сбрасываем выбор варианта при смене размера
+              setSelectedCakeVariant('');
+            }}
             className={`p-4 rounded-lg border-2 transition-all hover:scale-105 ${
               selectedSize.id === size.id
                 ? 'border-pink-500 bg-pink-50'
@@ -157,7 +159,7 @@ const CakeConstructor = () => {
               <div className="text-2xl mb-2">🍰</div>
               <div className="font-semibold">{size.name}</div>
               <div className="text-sm text-gray-600">Ø{size.diameter}см</div>
-              <div className="text-lg font-bold text-pink-600">{size.price}₽</div>
+              <div className="text-lg font-bold text-pink-600">от {size.price}₽</div>
             </div>
           </button>
         ))}
@@ -191,73 +193,57 @@ const CakeConstructor = () => {
     </div>
   );
 
-  const renderLayerSelector = () => (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold mb-4">Выберите бисквит *</h3>
-      {!selectedLayer && (
-        <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-yellow-800 text-sm">⚠️ Пожалуйста, выберите бисквит для торта</p>
+  const renderVariantSelector = () => {
+    // Для бенто не показываем варианты
+    if (selectedSize.id === 'bento') {
+      return (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold mb-4">Вариант торта</h3>
+          <div className="p-6 bg-gray-50 rounded-lg text-center">
+            <p className="text-gray-600">Для бенто-тортов варианты не предусмотрены</p>
+            <p className="text-sm text-gray-500 mt-2">Выберите размер от 1кг для выбора варианта</p>
+          </div>
         </div>
-      )}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {layers.map((layer) => (
-          <div
-            key={layer.id}
-            className={`p-4 border rounded-lg hover:border-pink-300 transition-all hover:scale-105 cursor-pointer ${
-              selectedLayer === layer.id
-                ? 'border-pink-500 bg-pink-50'
-                : 'border-gray-200'
-            }`}
-            onClick={() => setSelectedLayer(layer.id)}
-          >
-            <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">🍰</span>
-              </div>
-              <div className="flex-1">
-                <div className="font-semibold">{layer.name}</div>
-                <div className="text-sm text-gray-600">
-                  Включено в стоимость
+      );
+    }
+
+    // Для тортов от 1кг показываем варианты
+    return (
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold mb-4">Выберите вариант торта *</h3>
+        {!selectedCakeVariant && (
+          <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p className="text-yellow-800 text-sm">⚠️ Пожалуйста, выберите вариант торта</p>
+          </div>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {cakeVariants.map((variant) => (
+            <div
+              key={variant.id}
+              className={`p-4 border rounded-lg hover:border-pink-300 transition-all hover:scale-105 cursor-pointer ${
+                selectedCakeVariant === variant.id
+                  ? 'border-pink-500 bg-pink-50'
+                  : 'border-gray-200'
+              }`}
+              onClick={() => setSelectedCakeVariant(variant.id)}
+            >
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
+                  <span className="text-2xl">🍰</span>
+                </div>
+                <div className="flex-1">
+                  <div className="font-semibold">{variant.name}</div>
+                  <div className="text-sm text-gray-600">
+                    Включено в стоимость
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  );
-
-  const renderFillingSelector = () => (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold mb-4">Выберите начинку</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {fillings.map((filling) => (
-          <div
-            key={filling.id}
-            className={`p-4 border rounded-lg hover:border-pink-300 transition-all hover:scale-105 cursor-pointer ${
-              selectedFilling === filling.id
-                ? 'border-pink-500 bg-pink-50'
-                : 'border-gray-200'
-            }`}
-            onClick={() => setSelectedFilling(selectedFilling === filling.id ? '' : filling.id)}
-          >
-            <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-                <span className="text-2xl">🥄</span>
-              </div>
-              <div className="flex-1">
-                <div className="font-semibold">{filling.name}</div>
-                <div className="text-sm text-gray-600">Включено</div>
-              </div>
-              <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
-                {selectedFilling === filling.id ? 'Выбрано' : 'Выбрать'}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    );
+  };
 
   const renderDecorationSelector = () => (
     <div className="space-y-4">
@@ -301,24 +287,53 @@ const CakeConstructor = () => {
     <div className="space-y-6">
       <h3 className="text-lg font-semibold mb-4">Дополнительно</h3>
       
-      {/* Свечи */}
+      {/* Свечи ручной работы */}
       <div className="bg-gray-50 rounded-lg p-4">
-        <h4 className="font-semibold mb-3">Свечи</h4>
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={() => setSelectedCandles(Math.max(0, selectedCandles - 1))}
-            className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
-          >
-            <Minus className="w-4 h-4" />
-          </button>
-          <span className="text-lg font-semibold min-w-[2rem] text-center">{selectedCandles}</span>
-          <button
-            onClick={() => setSelectedCandles(selectedCandles + 1)}
-            className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center hover:bg-pink-600"
-          >
-            <Plus className="w-4 h-4" />
-          </button>
-          <span className="text-sm text-gray-600">× 50₽</span>
+        <h4 className="font-semibold mb-3">🕯️ Свечи ручной работы</h4>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => setSelectedHandmadeCandles(Math.max(0, selectedHandmadeCandles - 1))}
+              className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
+            >
+              <Minus className="w-4 h-4" />
+            </button>
+            <span className="text-lg font-semibold min-w-[2rem] text-center">{selectedHandmadeCandles}</span>
+            <button
+              onClick={() => setSelectedHandmadeCandles(selectedHandmadeCandles + 1)}
+              className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center hover:bg-pink-600"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="text-sm text-gray-600">
+            {selectedHandmadeCandles > 0 ? `${handmadeCandlePrice}₽ × ${selectedHandmadeCandles} = ${selectedHandmadeCandles * handmadeCandlePrice}₽` : '60₽ за штуку'}
+          </div>
+        </div>
+      </div>
+
+      {/* Свечи-цифры */}
+      <div className="bg-gray-50 rounded-lg p-4">
+        <h4 className="font-semibold mb-3">🔢 Свечи-цифры</h4>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => setSelectedNumberCandles(Math.max(0, selectedNumberCandles - 1))}
+              className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
+            >
+              <Minus className="w-4 h-4" />
+            </button>
+            <span className="text-lg font-semibold min-w-[2rem] text-center">{selectedNumberCandles}</span>
+            <button
+              onClick={() => setSelectedNumberCandles(selectedNumberCandles + 1)}
+              className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center hover:bg-pink-600"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="text-sm text-gray-600">
+            {selectedNumberCandles > 0 ? `от ${numberCandlePrice}₽ × ${selectedNumberCandles} = от ${selectedNumberCandles * numberCandlePrice}₽` : 'от 220₽ за штуку'}
+          </div>
         </div>
       </div>
 
@@ -341,10 +356,8 @@ const CakeConstructor = () => {
     switch (activeTab) {
       case 'size':
         return renderSizeSelector();
-      case 'layers':
-        return renderLayerSelector();
-      case 'fillings':
-        return renderFillingSelector();
+      case 'variant':
+        return renderVariantSelector();
       case 'decorations':
         return renderDecorationSelector();
       case 'extras':
@@ -418,21 +431,30 @@ const CakeConstructor = () => {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Бисквит:</span>
-                  <span className="font-semibold">{selectedLayer ? layers.find(l => l.id === selectedLayer)?.name : 'Не выбран'}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Начинки:</span>
-                  <span className="font-semibold">{selectedFilling ? 1 : 0}</span>
+                  <span>Вариант:</span>
+                  <span className="font-semibold">
+                    {selectedSize.id === 'bento' 
+                      ? 'Не предусмотрен' 
+                      : selectedCakeVariant 
+                        ? cakeVariants.find(v => v.id === selectedCakeVariant)?.name 
+                        : 'Не выбран'
+                    }
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span>Декор:</span>
                   <span className="font-semibold">{selectedDecorations.length}</span>
                 </div>
-                {selectedCandles > 0 && (
+                {selectedHandmadeCandles > 0 && (
                   <div className="flex justify-between">
-                    <span>Свечи:</span>
-                    <span className="font-semibold">{selectedCandles} шт.</span>
+                    <span>Свечи ручной работы:</span>
+                    <span className="font-semibold">{selectedHandmadeCandles} шт. × 60₽ = {selectedHandmadeCandles * 60}₽</span>
+                  </div>
+                )}
+                {selectedNumberCandles > 0 && (
+                  <div className="flex justify-between">
+                    <span>Свечи-цифры:</span>
+                    <span className="font-semibold">{selectedNumberCandles} шт. × от 220₽ = от {selectedNumberCandles * 220}₽</span>
                   </div>
                 )}
                 {customText && (
@@ -465,17 +487,12 @@ const CakeConstructor = () => {
             <h3 className="text-lg font-semibold mb-4">Оформить заказ</h3>
             <form onSubmit={(e) => {
               e.preventDefault();
-              // Проверяем, что бисквит выбран
-              if (!selectedLayer) {
-                setActiveTab('layers');
+              // Проверяем, что вариант выбран (для тортов от 1кг)
+              if (selectedSize.id !== 'bento' && !selectedCakeVariant) {
+                setActiveTab('variant');
                 return;
               }
               
-              // Проверяем, что начинка выбрана
-              if (!selectedFilling) {
-                setActiveTab('fillings');
-                return;
-              }
               const orderText = `🍰 Заказ кастомного торта Daisy Cake
 
 👤 Клиент: ${formData.customerName}
@@ -489,16 +506,22 @@ const CakeConstructor = () => {
 🎂 Конфигурация торта:
 • Размер: ${selectedSize.name}
 • Форма: ${shapes.find(s => s.id === selectedShape)?.name}
-• Бисквит: ${selectedLayer ? layers.find(l => l.id === selectedLayer)?.name : 'Не выбран'}
-• Начинки: ${selectedFilling ? fillings.find(f => f.id === selectedFilling)?.name : 'Не выбрана'}
+${selectedSize.id !== 'bento' ? `• Вариант: ${selectedCakeVariant ? cakeVariants.find(v => v.id === selectedCakeVariant)?.name : 'Не выбран'}` : ''}
 • Декор: ${selectedDecorations.map(id => decorations.find(d => d.id === id)?.name).join(', ')}
 • Упаковка: ${packaging.find(p => p.id === selectedPackaging)?.name}
-• Свечи: ${selectedCandles} шт.
+${selectedHandmadeCandles > 0 ? `• Свечи ручной работы: ${selectedHandmadeCandles} шт. × 60₽ = ${selectedHandmadeCandles * 60}₽` : ''}
+${selectedNumberCandles > 0 ? `• Свечи-цифры: ${selectedNumberCandles} шт. × от 220₽ = от ${selectedNumberCandles * 220}₽` : ''}
 ${customText ? `• Персональная надпись: "${customText}"` : ''}
 
 💰 Общая стоимость: ${totalPrice}₽
 
-Спасибо за заказ! 🎂`;
+📍 Адрес доставки: [укажите адрес]
+📅 Желаемая дата: [укажите дату]
+🕐 Желаемое время: [укажите время]
+
+Спасибо за заказ! 🎂
+
+Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа`;
 
               const telegramUrl = `https://t.me/daisy_cake_sochi?text=${encodeURIComponent(orderText)}`;
               
@@ -604,15 +627,15 @@ ${customText ? `• Персональная надпись: "${customText}"` : 
               <div className="space-y-3">
                 <button
                   type="submit"
-                  disabled={!selectedLayer || !selectedFilling}
+                  disabled={selectedSize.id !== 'bento' && !selectedCakeVariant}
                   className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 ${
-                    !selectedLayer || !selectedFilling
+                    selectedSize.id !== 'bento' && !selectedCakeVariant
                       ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                       : 'bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 transform hover:scale-105'
                   }`}
                 >
-                  {!selectedLayer || !selectedFilling 
-                    ? 'Выберите бисквит и начинку' 
+                  {selectedSize.id !== 'bento' && !selectedCakeVariant
+                    ? 'Выберите вариант торта' 
                     : `Заказать за ${totalPrice}₽`
                   }
                 </button>
