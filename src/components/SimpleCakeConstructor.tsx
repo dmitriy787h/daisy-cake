@@ -21,13 +21,13 @@ const SimpleCakeConstructor = () => {
 
   const sizes = [
     { id: 'bento', name: 'Бенто', price: 1499, diameter: 11 },
-    { id: '1kg', name: '1 кг', price: 2500, diameter: 18 },
-    { id: '1.5kg', name: '1,5 кг', price: 3000, diameter: 20 },
-    { id: '2kg', name: '2 кг', price: 4000, diameter: 22 },
-    { id: '2.5kg', name: '2,5 кг', price: 5000, diameter: 24 },
-    { id: '3kg', name: '3 кг', price: 6000, diameter: 26 },
-    { id: '3.5kg', name: '3,5 кг', price: 7000, diameter: 28 },
-    { id: '4kg', name: '4 кг', price: 8000, diameter: 30 }
+    { id: '1kg', name: '1 кг', price: 2500, diameter: 14 },
+    { id: '1.5kg', name: '1,5 кг', price: 3000, diameter: '14-16' },
+    { id: '2kg', name: '2 кг', price: 4000, diameter: '16-18' },
+    { id: '2.5kg', name: '2,5 кг', price: 5000, diameter: '16-18' },
+    { id: '3kg', name: '3 кг', price: 6000, diameter: '18-20' },
+    { id: '3.5kg', name: '3,5 кг', price: 7000, diameter: '18-20' },
+    { id: '4kg', name: '4 кг', price: 8000, diameter: '18-20' }
   ];
 
   const layers = [
@@ -116,6 +116,7 @@ const SimpleCakeConstructor = () => {
                     }`}
                   >
                     <div className="font-semibold">{size.name}</div>
+                    <div className="text-sm text-gray-600">Ø{size.diameter}см</div>
                     <div className="text-pink-600">от {size.price}₽</div>
                   </button>
                 ))}

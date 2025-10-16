@@ -12,7 +12,7 @@ export interface CakeOption {
 export interface CakeSize {
   id: string;
   name: string;
-  diameter: number; // в см
+  diameter: number | string; // в см или диапазон
   servings: number;
   basePrice: number;
   height: number; // в см
@@ -81,7 +81,7 @@ export const cakeSizes: CakeSize[] = [
   {
     id: '1kg',
     name: '1 кг',
-    diameter: 18,
+    diameter: 14,
     servings: 6,
     basePrice: 2500,
     height: 8
@@ -89,7 +89,7 @@ export const cakeSizes: CakeSize[] = [
   {
     id: '1.5kg',
     name: '1,5 кг',
-    diameter: 20,
+    diameter: '14-16',
     servings: 8,
     basePrice: 3000,
     height: 9
@@ -97,7 +97,7 @@ export const cakeSizes: CakeSize[] = [
   {
     id: '2kg',
     name: '2 кг',
-    diameter: 22,
+    diameter: '16-18',
     servings: 10,
     basePrice: 4000,
     height: 10
@@ -105,7 +105,7 @@ export const cakeSizes: CakeSize[] = [
   {
     id: '2.5kg',
     name: '2,5 кг',
-    diameter: 24,
+    diameter: '16-18',
     servings: 12,
     basePrice: 5000,
     height: 11
@@ -113,7 +113,7 @@ export const cakeSizes: CakeSize[] = [
   {
     id: '3kg',
     name: '3 кг',
-    diameter: 26,
+    diameter: '18-20',
     servings: 14,
     basePrice: 6000,
     height: 12
@@ -121,7 +121,7 @@ export const cakeSizes: CakeSize[] = [
   {
     id: '3.5kg',
     name: '3,5 кг',
-    diameter: 28,
+    diameter: '18-20',
     servings: 16,
     basePrice: 7000,
     height: 13
@@ -129,7 +129,7 @@ export const cakeSizes: CakeSize[] = [
   {
     id: '4kg',
     name: '4 кг',
-    diameter: 30,
+    diameter: '18-20',
     servings: 18,
     basePrice: 8000,
     height: 14
