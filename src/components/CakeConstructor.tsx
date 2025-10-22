@@ -86,11 +86,7 @@ const CakeConstructor = () => {
     // Для тортов от 1кг - варианты включены в базовую стоимость
     // Для бенто - варианты не нужны
     
-    // Добавляем цену за декор
-    selectedDecorations.forEach(decorationId => {
-      const decoration = decorations.find(d => d.id === decorationId);
-      if (decoration) total += decoration.price;
-    });
+    // Декор рассчитывается индивидуально менеджером
     
     // Добавляем цену за упаковку
     const packagingPrice = packaging.find(p => p.id === selectedPackaging)?.price || 0;
@@ -271,7 +267,6 @@ const CakeConstructor = () => {
               </div>
               <div className="flex-1">
                 <div className="font-semibold">{decoration.name}</div>
-                <div className="text-sm text-gray-600">+{decoration.price}₽</div>
               </div>
               <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
                 {selectedDecorations.includes(decoration.id) ? 'Убрать' : 'Добавить'}
