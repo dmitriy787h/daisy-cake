@@ -87,7 +87,7 @@ const cakeItems = [
   {
     id: 5,
     name: 'Муссовый бенто',
-    price: 1799,
+    price: 1899,
     rating: 4.8,
     reviews: 94,
     description: '',
@@ -145,7 +145,7 @@ const cakeItems = [
   {
     id: 8,
     name: 'Бенто с шоколадной фигуркой',
-    price: 2100,
+    price: 2150,
     rating: 4.8,
     reviews: 112,
     description: '',

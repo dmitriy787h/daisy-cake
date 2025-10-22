@@ -46,7 +46,7 @@ const HomePage = () => {
     {
       id: 5,
       name: 'Муссовый бенто',
-      price: 1799,
+      price: 1899,
       description: '',
       images: ['/images/cakes/mkdir/cake-5.1.jpg', '/images/cakes/mkdir/cake-5.2.jpg', '/images/cakes/mkdir/cake-5.3.jpg', '/images/cakes/mkdir/cake-5.jpg'],
       category: 'cakes'
@@ -70,7 +70,7 @@ const HomePage = () => {
     {
       id: 8,
       name: 'Бенто с шоколадной фигуркой',
-      price: 2100,
+      price: 2150,
       description: '',
       images: ['/images/cakes/mkdir/cake-8.jpg'],
       category: 'cakes'
