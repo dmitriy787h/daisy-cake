@@ -146,10 +146,13 @@ const HomePage = () => {
       <section className="relative py-20 overflow-hidden">
         {/* Фоновое изображение торта */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <Image 
             src="/images/hero/IMG_5670.JPG" 
             alt="Красивый торт" 
-            className="w-full h-full object-cover"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
           />
           {/* Темный оверлей для читаемости текста */}
           <div className="absolute inset-0 bg-black/40"></div>

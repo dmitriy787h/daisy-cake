@@ -105,6 +105,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/images/logo/logo.png" />
+        <link rel="preload" href="/images/hero/IMG_5670.JPG" as="image" type="image/jpeg" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
