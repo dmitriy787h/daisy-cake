@@ -38,7 +38,7 @@ export default function ContactsPage() {
                   <div>
                     <h3 className="font-semibold text-gray-900">Телефон / WhatsApp</h3>
                     <p className="text-gray-600">8 (938) 405-25-90</p>
-                    <p className="text-sm text-gray-500">Ежедневно с 9:00 до 21:00</p>
+                    <p className="text-sm text-gray-500">Пн-Пт: 10:00-19:00, Сб: 10:00-17:00, Вс: Выходной</p>
                   </div>
                 </a>
 
