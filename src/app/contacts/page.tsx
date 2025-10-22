@@ -3,7 +3,7 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import YandexMap from '@/components/YandexMap';
-import { MessageCircle, Instagram } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export default function ContactsPage() {
   return (
@@ -92,15 +92,6 @@ export default function ContactsPage() {
                 >
                   <MessageCircle className="w-6 h-6 text-green-500 group-hover:scale-110 transition-transform" />
                   <span className="text-green-700 font-semibold">WhatsApp</span>
-                </a>
-                <a 
-                  href="https://www.instagram.com/daisy.cake.sochi?igsh=dWYzMXZkNDBtMnJ3" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center space-x-3 p-4 bg-pink-50 rounded-xl hover:bg-pink-100 transition-colors group"
-                >
-                  <Instagram className="w-6 h-6 text-pink-500 group-hover:scale-110 transition-transform" />
-                  <span className="text-pink-700 font-semibold">Instagram</span>
                 </a>
                 <a 
                   href="https://t.me/daisy_cake_sochi" 

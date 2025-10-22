@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Clock, MessageCircle, Instagram } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -95,15 +95,6 @@ const Footer = () => {
               >
                 <MessageCircle className="w-5 h-5 text-green-400 group-hover:scale-110 transition-transform" />
                 <span>WhatsApp</span>
-              </a>
-              <a 
-                href="https://www.instagram.com/daisy.cake.sochi?igsh=dWYzMXZkNDBtMnJ3" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-300 hover:text-pink-400 transition-colors group"
-              >
-                <Instagram className="w-5 h-5 text-pink-400 group-hover:scale-110 transition-transform" />
-                <span>Instagram</span>
               </a>
               <a 
                 href="https://t.me/daisy_cake_sochi" 

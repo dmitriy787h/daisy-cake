@@ -96,7 +96,6 @@ export default function RootLayout({
     "priceRange": "$$",
     "servesCuisine": "Кондитерские изделия",
     "sameAs": [
-      "https://www.instagram.com/daisy.cake.sochi",
       "https://t.me/daisy_cake_sochi"
     ]
   };

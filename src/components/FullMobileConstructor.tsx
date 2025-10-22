@@ -454,7 +454,6 @@ ${customText ? `• Персональная надпись: "${customText}"` : 
 📅 Желаемая дата: [укажите дату]
 🕐 Желаемое время: [укажите время]
 
-📸 Наш инстаграм: https://www.instagram.com/daisy.cake.sochi?igsh=dWYzMXZkNDBtMnJ3
 
 Спасибо за заказ! 🎂
 
