@@ -53,7 +53,7 @@ const FullMobileConstructor = () => {
     { id: 'caramel', name: 'Карамель', price: 0 },
     { id: 'caramel-peanut', name: 'Карамель и арахис', price: 0 },
     { id: 'caramel-banana', name: 'Карамель и банан', price: 0 },
-    { id: 'coconut', name: 'Кокосовое', price: 0 }
+    { id: 'coconut', name: 'Кокосовая', price: 0 }
   ];
 
 
